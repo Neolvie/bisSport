@@ -1,0 +1,17 @@
+﻿@using bisSport.Domain.Core
+@model Team
+
+@{
+    ViewBag.Title = @Model.Name;
+}
+
+<h2>@Model.Name</h2>
+<h3>Игроки</h3>
+<ol>
+    @foreach (Player player in @Model.Players)
+    {
+
+    <li>@Html.ActionLink(@player.Name, "Index", "Player", new { id = @player.Id }, null)</li>
+
+    }
+</ol>

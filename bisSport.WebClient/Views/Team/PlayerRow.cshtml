@@ -1,0 +1,14 @@
+﻿@using bisSport.WebClient.Helpers
+@model bisSport.Domain.Core.Player
+
+@using (Html.BeginCollectionItem("Players"))
+{
+  <div id="playerRow">
+    @Html.HiddenFor(x => x.Id)
+    @Html.GuidForModel()
+    <span class="col-md-8 form-control-static">@Html.DisplayFor(x => x.Name)</span>
+    @Html.HiddenFor(x => x.Name)
+
+    <a href="#" class="deletePlayer"><span class="glyphicon glyphicon-remove col-md-2" style="color: #FF0000;"></span></a>
+  </div>
+}

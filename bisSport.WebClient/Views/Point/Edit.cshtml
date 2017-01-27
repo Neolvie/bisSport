@@ -1,0 +1,121 @@
+﻿@model bisSport.Domain.Core.Point
+
+@Scripts.Render("~/bundles/select2")
+@Styles.Render("~/bundles/select2css")
+
+@using (Html.BeginForm())
+{ @Html.AntiForgeryToken()   <div class="form-horizontal">
+  <h4>Point</h4>
+  <hr />
+  @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+  @Html.HiddenFor(model => model.Id)
+
+  <div class="form-group">
+    @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+      @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
+      @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-offset-2 col-md-10" id="Scorers">
+      @foreach (var scorer in Model.Scorers.OrderBy(x => x.Time))
+        {
+          Html.RenderPartial("ScorerRow", scorer);
+        }
+    </div>
+
+    <button class="col-md-offset-2 btn btn-xs btn-success" data-toggle="modal" data-target="#add-scorer">
+      <span class="glyphicon glyphicon-plus"></span> Добавить
+    </button>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <input type="submit" value="Сохранить" class="btn btn-success" />
+      <button class="btn btn-default" onclick="history.go(-1)">Отмена</button>
+    </div>
+  </div>
+</div>
+
+  <div class="modal fade" id="add-scorer" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header h4">
+          Добавление очкующего
+        </div>
+        <div class="modal-body">
+          @Html.LabelFor(x => x.Scorers.First().Participant)
+          <p>
+            <select class="form-control" id="playerSearch">
+              <option></option>
+            </select>
+          </p>
+          <input type="hidden" id="newScorerId" />
+          @Html.LabelFor(x => x.Scorers.First().Time)
+          <input class="form-control" type="number" min="0" name="name" id="scoreMin" />
+          <input class="form-control" type="number" min="0" max="60" name="name" id="scoreSec" />
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" id="AddScorerToList">Ок</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @section scripts
+  {
+    <script>
+      $("#Scorers").on("click", ".deleteScorer", function() {
+        $(this).parents("#scorerRow:first").remove();
+        return false;
+      });
+
+      $("#add-scorer").on("click", "#AddScorerToList", function() {
+        var link = '@Html.Raw(@Url.Action("AddScorerRow", new {playerId = "Vasya", min = "time_min", sec = "time_sec"}))';
+        var playerId = $('#newScorerId')[0].value;
+        var mins = $('#scoreMin')[0].value;
+        var secs = $('#scoreSec')[0].value;
+        link = link.replace("Vasya", playerId);
+        link = link.replace("time_min", mins);
+        link = link.replace("time_sec", secs);
+        $.ajax({
+          url: link,
+          cache: false,
+          success: function(html) {
+            $("#Scorers").append(html);
+            $("#newScorerId")[0].value = '';
+            $("#scoreMin")[0].value = '';
+            $("#scoreSec")[0].value = '';
+          }
+        });
+        return false;
+      });
+
+      $(document).ready(function() {
+        $.jsonResponse = $.ajax({
+          url: '@Html.Raw(@Url.Action("GetParticipants", new {pointId = @Model.Id}))',
+          cache: false,
+          async: false,
+          success: function(data) {
+            $.players = data;
+          }
+        });
+      });
+
+      $(document).ready(function() {
+        $("#playerSearch").select2({ data: $.players });
+      });
+
+      $('#playerSearch').on("select2:select", function(e) {
+        $('#newScorerId')[0].value = e.params.data.id;
+      });
+
+
+    </script>
+  }
+}
+

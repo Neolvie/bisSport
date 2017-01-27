@@ -1,0 +1,32 @@
+﻿@using bisSport.Domain.Core
+@model bisSport.Domain.Core.Match
+
+@{
+  ViewBag.Title = @Model.Name;
+}
+
+<h2>@Model.Name</h2>
+
+
+<div>Хозяева: @Html.ActionLink(@Model.Participants[0].Name, "Index", "Participant", new { area = "", id = @Model.Participants[0].Id }, null)</div>
+<div>Гости: @Html.ActionLink(@Model.Participants[1].Name, "Index", "Participant", new { area = "", id = @Model.Participants[1].Id }, null)</div>
+<div>Турнир: @Html.ActionLink(@Model.Event.Name, "Index", "SingleEvent", new { area = "", id = @Model.Event.Id }, null)</div>
+<div>Раунд: @Html.ActionLink(@Model.Round.Name, "MatchList", "Round", new { roundId = @Model.Round.Id }, null) (@Html.ActionLink("инфо", "Index", "Round", new { id = Model.Round.Id }, new { target = "_blank" }))</div>
+<div>Место проведения: @Model.Area?.Name</div>
+<div>Дата проведения: @Model.BeginDate</div>
+@if (@Model.Result != null)
+{
+<h4>Голы</h4>
+    foreach (var participant in @Model.Participants)
+    {
+    <h5>@participant.Name</h5>
+            <ul>
+                @foreach (var scorer in @Model.Result.Scores.Single(x => x.Participant.Id == participant.Id).Point.Scorers.OrderBy(x => x.Time))
+                {
+                <li>@Html.ActionLink(@scorer.Participant.Name, "Index", "Player", new { area = "", id = @scorer.Participant.Id }, null) (@scorer.Time минута)</li>
+                }
+            </ul>
+
+    }
+}
+

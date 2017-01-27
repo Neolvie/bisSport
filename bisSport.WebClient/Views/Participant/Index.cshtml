@@ -1,0 +1,14 @@
+﻿@model bisSport.Domain.Core.Base.ParticipantBase
+
+@{
+    ViewBag.Title = @Model.Name;
+}
+
+<h2>@Model.Name</h2>
+
+<div>Тип: @Model.Type</div>
+@if (Model.Team != null)
+{
+    <div>@Html.ActionLink(Model.Team.Name, "Index", "Team", new { id = Model.Team.Id }, null)</div>
+}
+

@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bisSport.WebClient", "bisSport.WebClient\bisSport.WebClient.csproj", "{F261CA35-63C0-49D6-BF91-3A16812B97F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bisSport.Domain", "bisSport.Domain\bisSport.Domain.csproj", "{003CC5A5-AC21-4E0E-9952-D60FDD88F3AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bisSport.Server", "bisSport.Server\bisSport.Server.csproj", "{C0D29F8D-2EB7-4E9D-9D49-531ED57916D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bisSport.Tests", "bisSport.Tests\bisSport.Tests.csproj", "{34593057-71D9-4001-B325-2872DEFCFB70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Links", "Links", "{7EB19225-3E1A-4772-B6E3-C65E8B6BDACF}"
+	ProjectSection(SolutionItems) = preProject
+		Links.txt = Links.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F261CA35-63C0-49D6-BF91-3A16812B97F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F261CA35-63C0-49D6-BF91-3A16812B97F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F261CA35-63C0-49D6-BF91-3A16812B97F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F261CA35-63C0-49D6-BF91-3A16812B97F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{003CC5A5-AC21-4E0E-9952-D60FDD88F3AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{003CC5A5-AC21-4E0E-9952-D60FDD88F3AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{003CC5A5-AC21-4E0E-9952-D60FDD88F3AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{003CC5A5-AC21-4E0E-9952-D60FDD88F3AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0D29F8D-2EB7-4E9D-9D49-531ED57916D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0D29F8D-2EB7-4E9D-9D49-531ED57916D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0D29F8D-2EB7-4E9D-9D49-531ED57916D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0D29F8D-2EB7-4E9D-9D49-531ED57916D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34593057-71D9-4001-B325-2872DEFCFB70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34593057-71D9-4001-B325-2872DEFCFB70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34593057-71D9-4001-B325-2872DEFCFB70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34593057-71D9-4001-B325-2872DEFCFB70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://llcbissoft.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = bisSport.WebClient\\bisSport.WebClient.csproj
+		SccProjectName1 = bisSport.WebClient
+		SccLocalPath1 = bisSport.WebClient
+		SccProjectUniqueName2 = bisSport.Domain\\bisSport.Domain.csproj
+		SccProjectName2 = bisSport.Domain
+		SccLocalPath2 = bisSport.Domain
+		SccProjectUniqueName3 = bisSport.Server\\bisSport.Server.csproj
+		SccProjectName3 = bisSport.Server
+		SccLocalPath3 = bisSport.Server
+		SccProjectUniqueName4 = bisSport.Tests\\bisSport.Tests.csproj
+		SccProjectName4 = bisSport.Tests
+		SccLocalPath4 = bisSport.Tests
+	EndGlobalSection
+EndGlobal

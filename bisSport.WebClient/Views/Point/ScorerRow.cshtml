@@ -1,0 +1,17 @@
+﻿
+@using bisSport.Domain.Core
+@using bisSport.Server.Repository
+@model bisSport.Domain.Core.Scorer
+
+@using (Html.BeginCollectionItem("Scorers"))
+{
+  <div class="row" id="scorerRow">
+    @Html.HiddenFor(x => x.Id)
+    <span class="col-md-4 form-control-static">@Html.DisplayFor(x => x.Participant.As<Player>().Name)</span>
+    @Html.HiddenFor(x => x.Participant)
+    @Html.HiddenFor(x => x.Time)
+    <div class="col-md-2">@Html.DisplayFor(x => x.Time, "Minutes")</div>
+
+    <a href="#" class="deleteScorer"><span class="glyphicon glyphicon-remove col-md-2" style="color: #FF0000;"></span></a>
+  </div>
+}

@@ -1,0 +1,30 @@
+﻿@using bisSport.Domain.Enums
+@using bisSport.Domain.Helpers
+@model bisSport.Domain.Core.Round
+
+@{
+    ViewBag.Title = @Model.Name;
+}
+
+<h2>@Model.Name</h2>
+<div>Тип раунда: @Model.Type.GetDescription()</div>
+@if (Model.Type == RoundType.AllPlayAll)
+{
+    <div>Участников в группе: @Model.ParticipantsPerGroup</div>
+    <div>Проходят в следующий раунд: @Model.WinnerCount</div>
+}
+<div>Минимальное количество участников: @Model.MinParticipants</div>
+<div>Максимальное количество участников: @Model.MaxParticipants</div>
+<div>Номер раунда: @Model.RoundNumber</div>
+<div>Игр в раунде: @Model.Games</div>
+<div>Периодов/таймов/сетов: @Model.Periods</div>
+
+@if (Model.Points.Any())
+{
+    <h4>Очки</h4>
+    foreach (var point in Model.Points.OrderByDescending(x => x.Count).ToList())
+     {
+         <div>@point.Name - @point.Count</div>
+     }
+}
+

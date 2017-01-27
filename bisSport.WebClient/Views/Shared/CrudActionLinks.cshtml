@@ -1,0 +1,85 @@
+﻿@model bisSport.WebClient.Models.CrudActionLinksViewModel
+
+@if (Model.HasActions)
+{
+<div class="row" style="padding: 5px;">
+    <div class="col-md-2">
+        @if (Model.CreateAction != null)
+        {
+            if (Model.CreateAction.ActionNames.Count > 1)
+            {
+
+            <button class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#select-create-type">Создать</button>
+
+            <div class="modal fade" id="select-create-type" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header h4">
+                            Создание
+                        </div>
+                        <div class="modal-body">
+                            @foreach (var action in Model.CreateAction.ActionNames)
+                            {
+                            <div class="row" style="margin: 10px;">@Html.ActionLink(action.Value, action.Key, Model.CreateAction.ControllerName, new { area = Model.CreateAction.Area }, new { @class = "btn btn-success btn-block" })</div>
+                            }
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+            else
+            {
+              var actionName = string.IsNullOrEmpty(Model.CreateAction.ActionNames.First().Value) ? "Создать" : Model.CreateAction.ActionNames.First().Value;
+            @Html.ActionLink(actionName, Model.CreateAction.ActionNames.First().Key, Model.CreateAction.ControllerName, new { area = Model.CreateAction.Area }, new { @class = "btn btn-success btn-xs btn-block" })
+            }
+        }
+        else
+        {
+            <button type="button" class="btn btn-success btn-xs btn-block disabled" style="cursor: not-allowed">Создать</button>
+        }
+    </div>
+    <div class="col-md-2">
+        @if (Model.EditAction != null)
+        {
+        @Html.ActionLink("Редактировать", Model.EditAction.ActionNames.First().Key, Model.EditAction.ControllerName, new { area = Model.EditAction.Area, id = Model.EditAction.EntityId }, new { @class = "btn btn-primary btn-xs btn-block" })
+        }
+        else
+        {
+            <button type="button" class="btn btn-primary btn-xs btn-block disabled" style="cursor: not-allowed">Редактировать</button>
+        }
+    </div>
+    <div class="col-md-2">
+        @if (Model.DeleteAction != null)
+        {
+
+        <button class="btn btn-danger btn-xs btn-block" data-toggle="modal" data-target="#confirm-delete">Удалить</button>
+
+        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header h4">
+                        Удаление
+                    </div>
+                    <div class="modal-body">
+                        Вы действительно хотите удалить запись?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        @Html.ActionLink("Удалить", Model.DeleteAction.ActionNames.First().Key, Model.DeleteAction.ControllerName, new { area = Model.DeleteAction.Area, id = Model.DeleteAction.EntityId }, new { @class = "btn btn-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+        else
+        {
+          <div>
+              <button type="button" class="btn btn-danger btn-xs btn-block disabled">Удалить</button>
+              </div>
+        }
+    </div>
+</div>
+}

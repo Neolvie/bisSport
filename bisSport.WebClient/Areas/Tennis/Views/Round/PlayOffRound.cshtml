@@ -1,0 +1,67 @@
+﻿@using bisSport.Domain.Core
+@using bisSport.Domain.Core.Interfaces
+@using bisSport.WebClient.Helpers
+@model bisSport.WebClient.Areas.Tennis.Models.MatchListViewModel
+
+@{
+  ViewBag.Title = "Результаты раунда";
+  var alreadyShowedMatches = new List<Match>();
+}
+
+@if (Model.Matches.Any())
+{
+    if (!Model.AsPartial)
+    {
+        <h2>@Model.Matches[0].Event.Name - @Model.Round.Name</h2>
+    }
+
+    <table class="table table-hover">
+        <thead>
+        <th>Матч</th>
+        <th class="text-center">Первая игра</th>
+        <th class="text-center">Вторая игра</th>
+        </thead>
+        @foreach (var match in Model.Matches.Where(match => !alreadyShowedMatches.Contains(match)))
+        {
+            <tr>
+                @{
+                    IParticipant winner = null;
+                    var nextMatch = Model.Matches.FirstOrDefault(x => x.PrevMatch != null && x.PrevMatch.Equals(match));
+                    if (match.Result != null && (nextMatch?.Result != null || match.Round.Games == 1))
+                    {
+                        var scores = match.Result.Scores.ToList();
+                        if (nextMatch?.Result != null)
+                        {
+                            scores = scores.Union(nextMatch.Result.Scores).ToList();
+                        }
+
+                        winner = ScoreHelpers.DefinePlayOffWinner(scores, match.Round);
+                    }
+                }
+
+                <td>
+                    @Html.ActionLink(match.Participants[0].Name, "Index", "Participant", new { area = "", id = match.Participants[0].Id}, match.Participants[0].Equals(winner) ? new {style = "font-weight:bold;"} : null) -
+                    @Html.ActionLink(match.Participants[1].Name, "Index", "Participant", new { area = "", id = match.Participants[1].Id}, match.Participants[1].Equals(winner) ? new {style = "font-weight:bold;"} : null)
+                </td>
+
+                @if (match.Result != null)
+                {
+                    var firstParticipant = match.Participants[0];
+                    var secondParticipant = match.Participants[1];
+                    <td class="text-center" style="padding: 5px 10px 5px 10px;">@Html.ActionLink($"{ScoreHelpers.GetParticipantResult(match.Result, firstParticipant)} - {ScoreHelpers.GetParticipantResult(match.Result, secondParticipant)}", "Index", "Match", new {id = match.Id}, null)</td>
+                    alreadyShowedMatches.Add(match);
+
+                    if (nextMatch?.Result != null)
+                    {
+                        <td class="text-center">@Html.ActionLink($"{ScoreHelpers.GetParticipantResult(nextMatch.Result, firstParticipant)} - {ScoreHelpers.GetParticipantResult(nextMatch.Result, secondParticipant)}", "Index", "Match", new {id = nextMatch.Id}, null)</td>
+                        alreadyShowedMatches.Add(nextMatch);
+                    }
+                }
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h4>Нет матчей для отображения</h4>
+}

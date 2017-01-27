@@ -1,0 +1,13 @@
+﻿@using bisSport.Domain.Helpers
+@model bisSport.Domain.Core.Address
+
+@{
+    ViewBag.Title = @Model.Name;
+}
+
+<h2>@Model.Name</h2>
+
+<div>Адрес: @Model.PostAddress</div>
+<div>Координаты: @Model.Latitude; @Model.Longitude</div>
+<div>Телефон: @Model.Phone</div>
+<div>Статус: @Model.Status.GetDescription()</div>

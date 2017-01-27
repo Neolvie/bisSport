@@ -1,0 +1,17 @@
+﻿@model bisSport.Domain.Core.Point
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+<h3>Очкометы</h3>
+<ol>
+  @foreach (var scorer in @Model.Scorers)
+  {
+
+    <li>@Html.ActionLink(@scorer.Name, "Index", "Player", new { id = @scorer.Participant.Id }, null)</li>
+
+  }
+</ol>

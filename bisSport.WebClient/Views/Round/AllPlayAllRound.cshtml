@@ -1,0 +1,40 @@
+﻿@using bisSport.WebClient.Helpers
+@using bisSport.WebClient.Models
+@model bisSport.WebClient.Models.MatchListViewModel
+
+@{
+  ViewBag.Title = "Результаты раунда";
+}
+@if (Model.Matches.Any())
+{
+    <h2>@Model.Matches[0].Event.Name - @Model.Round.Name</h2>
+
+    foreach (var group in Model.Round.Groups)
+    {
+        <h3>@group.Name</h3>
+
+        var result = ScoreHelpers.CalculateAllPlayAllScore(Model.Matches, group);
+
+        <table class="table table-hover">
+            <thead>
+            <th>Команда</th>
+            <th class="text-center">Очки</th>
+            </thead>
+            @foreach (var teamScore in result)
+            {
+                <tr>
+                    <td>@Html.ActionLink(@teamScore.Key.Name, "Index", "Participant", new {id = @teamScore.Key.Id}, null)</td>
+                    <td class="text-center">@teamScore.Value</td>
+                </tr>
+            }
+        </table>
+
+         var matches = Model.Matches.Where(x => group.Participants.Any(g => x.Participants.Contains(g))).ToList();
+
+         @Html.Partial("~/Views/Round/PlayOffRound.cshtml", new MatchListViewModel(Model.Round, matches, true))
+    }
+}
+else
+{
+    <h4>Нет матчей для отображения</h4>
+}

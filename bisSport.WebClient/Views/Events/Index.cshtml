@@ -1,0 +1,11 @@
+﻿@model bisSport.WebClient.Models.EventListViewModel
+@{
+    ViewBag.Title = "Соревнования";
+}
+
+<h2>Соревнования</h2>
+
+@foreach (var sportEvent in Model.Events)
+{
+    <div>@Html.ActionLink(sportEvent.Name, "Index", "SingleEvent", new { id = sportEvent.Id }, null)</div>
+}

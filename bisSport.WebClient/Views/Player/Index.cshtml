@@ -1,0 +1,24 @@
+﻿@using bisSport.Domain.Core
+@using bisSport.Server.Repository
+@model bisSport.WebClient.Models.PlayerInfoViewModel
+
+@{
+    ViewBag.Title = @Model.Player.Name;
+}
+
+<h2>@Model.Player.Name</h2>
+
+@if (Model.Player.Team != null)
+{
+    <h3>Команда: @Html.ActionLink(Model.Player.Team.Name, "Index", "Team", new { id = Model.Player.Team.Id }, null)</h3>
+}
+
+@if (@Model.TotalGoals != 0)
+{
+    <div>Забито голов: @Model.TotalGoals</div>
+    <h3>Результативные матчи</h3>
+    foreach (var match in @Model.ScoredMatches)
+    {
+        <div>@Html.ActionLink(@match.Name, "Index", "Match", new { area = match.Event.As<SingleEvent>().Structure.SportType.SportKind.ToString(), id = match.Id }, null)</div>
+    }
+}

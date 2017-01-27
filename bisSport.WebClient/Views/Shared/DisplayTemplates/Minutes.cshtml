@@ -1,0 +1,7 @@
+﻿@model TimeSpan
+
+@{
+  var minutes = Math.Floor(Model.TotalMinutes);
+  var seconds = Model.Seconds;
+  <span>@($"{minutes}:{seconds}")</span>
+}

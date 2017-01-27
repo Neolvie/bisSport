@@ -1,0 +1,36 @@
+﻿@model bisSport.Domain.Core.SingleEvent
+
+@{
+  ViewBag.Title = @Model.Name;
+}
+
+<h2>@Model.Name</h2>
+
+<div>Дата начала: @Model.BeginDate</div>
+<div>Дата окончания: @Model.EndDate</div>
+<div>Организатор: @Model.Organizer.Name</div>
+@if (Model.Address != null)
+{
+    <div>
+        Место проведения: @Html.ActionLink(@Model.Address.PostAddress, "Index", "Address", new { id = @Model.Address.Id }, null)
+    </div>
+}
+else
+{
+    <div>Место проведения: не указано</div>
+}
+
+<div>Вид спорта: @Html.ActionLink(Model.Structure.SportType.Name, "Index", "SportType", new { id = Model.Structure.SportType.Id }, null)</div>
+@if (Model.Structure.Rounds.Any())
+{
+    <h3>Раунды соревнования</h3>
+    <table class="table-hover">
+        @foreach (var round in @Model.Structure.Rounds)
+        {
+        <tr>
+            <td>@Html.ActionLink(round.Name, "MatchList", "Round", new { area = @Model.Structure.SportType.SportKind.ToString(), roundId = round.Id }, null)</td>
+            <td>@Html.ActionLink("(инфо)", "Index", "Round", new { id = round.Id }, new { target = "_blank", style = "padding: 5px;" })</td>
+        </tr>
+        }
+    </table>
+}
